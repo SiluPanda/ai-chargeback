@@ -44,12 +44,12 @@ This file tracks all implementation tasks derived from SPEC.md. Tasks are groupe
 
 ### 1.4 Tag Validation
 
-- [ ] **Implement tag key validation** — Validate that tag keys match `/^[a-zA-Z][a-zA-Z0-9_.-]*$/` (starts with letter, alphanumeric with underscores, dots, hyphens). Reject empty strings. Throw `ChargebackValidationError` on invalid key. | Status: not_done
-- [ ] **Implement reserved key prefix check** — Reject tag keys starting with `_cb_` (reserved for internal use). Throw `ChargebackValidationError`. | Status: not_done
-- [ ] **Implement tag value validation** — Validate tag values are non-empty strings with maximum 256 characters. Throw `ChargebackValidationError` on invalid value. | Status: not_done
-- [ ] **Implement tag count limit** — Reject tag sets with more than 20 key-value pairs. Throw `ChargebackValidationError`. | Status: not_done
-- [ ] **Implement allowed tag key enforcement** — When `allowedTagKeys` is an array, reject any tag key not in the list. When `'any'`, accept all keys. Throw `ChargebackValidationError` for disallowed keys. | Status: not_done
-- [ ] **Implement required tag key enforcement** — When `requiredTagKeys` is set, reject records missing any required key. Throw `ChargebackValidationError` with a clear message. | Status: not_done
+- [x] **Implement tag key validation** — Validate that tag keys match `/^[a-zA-Z][a-zA-Z0-9_.-]*$/` (starts with letter, alphanumeric with underscores, dots, hyphens). Reject empty strings. Throw `ChargebackValidationError` on invalid key. | Status: done
+- [x] **Implement reserved key prefix check** — Reject tag keys starting with `_cb_` (reserved for internal use). Throw `ChargebackValidationError`. | Status: done
+- [x] **Implement tag value validation** — Validate tag values are non-empty strings with maximum 256 characters. Throw `ChargebackValidationError` on invalid value. | Status: done
+- [x] **Implement tag count limit** — Reject tag sets with more than 20 key-value pairs. Throw `ChargebackValidationError`. | Status: done
+- [x] **Implement allowed tag key enforcement** — When `allowedTagKeys` is an array, reject any tag key not in the list. When `'any'`, accept all keys. Throw `ChargebackValidationError` for disallowed keys. | Status: done
+- [x] **Implement required tag key enforcement** — When `requiredTagKeys` is set, reject records missing any required key. Throw `ChargebackValidationError` with a clear message. | Status: done
 
 ### 1.5 CostTracker
 
