@@ -10,3 +10,4 @@ export {
   ChargebackValidationError, ChargebackStorageError, ChargebackConfigError,
 } from './errors';
 export { BUILT_IN_PRICING, getPrice, computeCost } from './pricing';
+export { MemoryStorageAdapter } from './storage/memory';
