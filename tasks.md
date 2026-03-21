@@ -36,11 +36,11 @@ This file tracks all implementation tasks derived from SPEC.md. Tasks are groupe
 
 ### 1.3 In-Memory Storage
 
-- [ ] **Implement `MemoryStorageAdapter`** — Create `src/storage/memory.ts` implementing `StorageAdapter`. Use an internal array to store `CostRecord` objects. | Status: not_done
-- [ ] **Implement `append()` for in-memory** — Push records to the internal array. | Status: not_done
-- [ ] **Implement `query()` with filter support** — Filter stored records by `from`/`to` date range (inclusive), `tags` (records must match ALL specified tags), `models` (array), `providers` (array). Return matching records. | Status: not_done
-- [ ] **Implement `purge()` for in-memory** — Remove records matching the given filters from the internal array. Return count of deleted records. | Status: not_done
-- [ ] **Implement `close()` for in-memory** — No-op for in-memory (clear internal array). | Status: not_done
+- [x] **Implement `MemoryStorageAdapter`** — Create `src/storage/memory.ts` implementing `StorageAdapter`. Use an internal array to store `CostRecord` objects. | Status: done
+- [x] **Implement `append()` for in-memory** — Push records to the internal array. | Status: done
+- [x] **Implement `query()` with filter support** — Filter stored records by `from`/`to` date range (inclusive), `tags` (records must match ALL specified tags), `models` (array), `providers` (array). Return matching records. | Status: done
+- [x] **Implement `purge()` for in-memory** — Remove records matching the given filters from the internal array. Return count of deleted records. | Status: done
+- [x] **Implement `close()` for in-memory** — No-op for in-memory (clear internal array). | Status: done
 
 ### 1.4 Tag Validation
 
