@@ -12,3 +12,4 @@ export {
 export { BUILT_IN_PRICING, getPrice, computeCost } from './pricing';
 export { MemoryStorageAdapter } from './storage/memory';
 export { validateTags, validateTagKey, validateTagValue } from './validation';
+export { createTracker } from './tracker';

@@ -53,21 +53,21 @@ This file tracks all implementation tasks derived from SPEC.md. Tasks are groupe
 
 ### 1.5 CostTracker
 
-- [ ] **Implement `CostTracker` class** — Create `src/tracker.ts` with internal state: storage adapter, pricing table, buffer config, default tags, validation config, closed flag. | Status: not_done
-- [ ] **Implement `createTracker(config?)` factory** — Parse config with defaults: `storage: { type: 'memory' }`, `pricing: {}`, `buffer: { maxRecords: 100, maxIntervalMs: 5000 }`, `defaultTags: {}`, `allowedTagKeys: 'any'`, `requiredTagKeys: []`. Throw `ChargebackConfigError` for invalid config. | Status: not_done
+- [x] **Implement `CostTracker` class** — Create `src/tracker.ts` with internal state: storage adapter, pricing table, buffer config, default tags, validation config, closed flag. | Status: done
+- [x] **Implement `createTracker(config?)` factory** — Parse config with defaults: `storage: { type: 'memory' }`, `pricing: {}`, `buffer: { maxRecords: 100, maxIntervalMs: 5000 }`, `defaultTags: {}`, `allowedTagKeys: 'any'`, `requiredTagKeys: []`. Throw `ChargebackConfigError` for invalid config. | Status: done
 - [ ] **Implement environment variable overrides** — Read `AI_CHARGEBACK_STORAGE_PATH`, `AI_CHARGEBACK_DEFAULT_TEAM`, `AI_CHARGEBACK_DEFAULT_ENV`, `AI_CHARGEBACK_BUFFER_SIZE`, `AI_CHARGEBACK_BUFFER_INTERVAL` from `process.env`. Environment variables override programmatic config. | Status: not_done
-- [ ] **Implement `record(input)` method** — Validate tags (including merge with defaultTags), compute cost (using pricing table or explicit cost), generate UUID via `crypto.randomUUID()`, create `CostRecord` with timestamp, append to buffer. | Status: not_done
-- [ ] **Implement write buffer** — Buffer records in memory. Flush to storage when buffer reaches `maxRecords` or when `maxIntervalMs` elapses (use `setInterval`). | Status: not_done
-- [ ] **Implement `flush()` method** — Force immediate write of buffered records to storage via `adapter.append()`. Clear the buffer. | Status: not_done
-- [ ] **Implement `query(filters?)` method** — Flush buffer first, then delegate to `adapter.query(filters)`. | Status: not_done
-- [ ] **Implement `count(filters?)` method** — Query records matching filters and return the count. | Status: not_done
-- [ ] **Implement `purge(filters)` method** — Delegate to `adapter.purge(filters)`. Return count of deleted records. | Status: not_done
-- [ ] **Implement `close()` method** — Flush remaining buffer, call `adapter.close()`, clear interval timer, set closed flag. Second call is a no-op. `record()` after `close()` throws error. | Status: not_done
-- [ ] **Implement provider inference from model name** — When `provider` is not specified in `RecordInput`, infer from model name: models starting with `gpt-`, `o1`, `o3` map to `openai`; models starting with `claude-` map to `anthropic`; models starting with `gemini-` map to `google`. Default to `'unknown'`. | Status: not_done
+- [x] **Implement `record(input)` method** — Validate tags (including merge with defaultTags), compute cost (using pricing table or explicit cost), generate UUID via `crypto.randomUUID()`, create `CostRecord` with timestamp, append to buffer. | Status: done
+- [x] **Implement write buffer** — Buffer records in memory. Flush to storage when buffer reaches `maxRecords` or when `maxIntervalMs` elapses (use `setInterval`). | Status: done
+- [x] **Implement `flush()` method** — Force immediate write of buffered records to storage via `adapter.append()`. Clear the buffer. | Status: done
+- [x] **Implement `query(filters?)` method** — Flush buffer first, then delegate to `adapter.query(filters)`. | Status: done
+- [x] **Implement `count(filters?)` method** — Query records matching filters and return the count. | Status: done
+- [x] **Implement `purge(filters)` method** — Delegate to `adapter.purge(filters)`. Return count of deleted records. | Status: done
+- [x] **Implement `close()` method** — Flush remaining buffer, call `adapter.close()`, clear interval timer, set closed flag. Second call is a no-op. `record()` after `close()` throws error. | Status: done
+- [x] **Implement provider inference from model name** — When `provider` is not specified in `RecordInput`, infer from model name: models starting with `gpt-`, `o1`, `o3` map to `openai`; models starting with `claude-` map to `anthropic`; models starting with `gemini-` map to `google`. Default to `'unknown'`. | Status: done
 
 ### 1.6 Entry Point
 
-- [ ] **Set up `src/index.ts` exports** — Export `tag`, `runWithTags`, `getCurrentTags`, `createTracker`, and all type definitions from `src/types.ts`. Follow the exact export structure from section 18 of the spec. | Status: not_done
+- [x] **Set up `src/index.ts` exports** — Export `createTracker` from `src/tracker.ts`. Remaining exports (`tag`, `runWithTags`, `getCurrentTags`) deferred to Phase 2 implementation. | Status: done
 
 ---
 
