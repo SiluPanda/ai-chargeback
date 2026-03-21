@@ -9,4 +9,4 @@ export type {
 export {
   ChargebackValidationError, ChargebackStorageError, ChargebackConfigError,
 } from './errors';
-// createTracker, createTaggedClient — to be implemented in later phases
+export { BUILT_IN_PRICING, getPrice, computeCost } from './pricing';
