@@ -236,45 +236,45 @@ This file tracks all implementation tasks derived from SPEC.md. Tasks are groupe
 
 ### 6.2 Tag Validation Tests
 
-- [ ] **Test valid tag key formats** — Verify keys with alphanumeric, underscores, dots, hyphens are accepted. | Status: not_done
-- [ ] **Test invalid tag key: empty string** — Verify `ChargebackValidationError` is thrown. | Status: not_done
-- [ ] **Test invalid tag key: starts with number** — Verify `ChargebackValidationError` is thrown. | Status: not_done
-- [ ] **Test invalid tag key: special characters** — Verify `ChargebackValidationError` is thrown for keys with spaces, `@`, `#`, etc. | Status: not_done
-- [ ] **Test invalid tag key: reserved prefix `_cb_`** — Verify `ChargebackValidationError` is thrown. | Status: not_done
-- [ ] **Test invalid tag value: empty string** — Verify `ChargebackValidationError` is thrown. | Status: not_done
-- [ ] **Test invalid tag value: exceeds 256 characters** — Verify `ChargebackValidationError` is thrown. | Status: not_done
-- [ ] **Test tag value at exactly 256 characters** — Verify it is accepted (boundary case). | Status: not_done
-- [ ] **Test tag count: exactly 20 pairs** — Verify accepted. | Status: not_done
-- [ ] **Test tag count: 21 pairs** — Verify `ChargebackValidationError` is thrown. | Status: not_done
-- [ ] **Test required tag keys enforcement** — Configure `requiredTagKeys: ['team']`. Record without `team` tag. Verify `ChargebackValidationError`. | Status: not_done
-- [ ] **Test allowed tag keys enforcement** — Configure `allowedTagKeys: ['team', 'project']`. Record with `feature` tag. Verify `ChargebackValidationError`. | Status: not_done
-- [ ] **Test `allowedTagKeys: 'any'`** — Verify any tag key is accepted when set to `'any'`. | Status: not_done
+- [x] **Test valid tag key formats** — Verify keys with alphanumeric, underscores, dots, hyphens are accepted. | Status: done
+- [x] **Test invalid tag key: empty string** — Verify `ChargebackValidationError` is thrown. | Status: done
+- [x] **Test invalid tag key: starts with number** — Verify `ChargebackValidationError` is thrown. | Status: done
+- [x] **Test invalid tag key: special characters** — Verify `ChargebackValidationError` is thrown for keys with spaces, `@`, `#`, etc. | Status: done
+- [x] **Test invalid tag key: reserved prefix `_cb_`** — Verify `ChargebackValidationError` is thrown. | Status: done
+- [x] **Test invalid tag value: empty string** — Verify `ChargebackValidationError` is thrown. | Status: done
+- [x] **Test invalid tag value: exceeds 256 characters** — Verify `ChargebackValidationError` is thrown. | Status: done
+- [x] **Test tag value at exactly 256 characters** — Verify it is accepted (boundary case). | Status: done
+- [x] **Test tag count: exactly 20 pairs** — Verify accepted. | Status: done
+- [x] **Test tag count: 21 pairs** — Verify `ChargebackValidationError` is thrown. | Status: done
+- [x] **Test required tag keys enforcement** — Configure `requiredTagKeys: ['team']`. Record without `team` tag. Verify `ChargebackValidationError`. | Status: done
+- [x] **Test allowed tag keys enforcement** — Configure `allowedTagKeys: ['team', 'project']`. Record with `feature` tag. Verify `ChargebackValidationError`. | Status: done
+- [x] **Test `allowedTagKeys: 'any'`** — Verify any tag key is accepted when set to `'any'`. | Status: done
 
 ### 6.3 Cost Computation Tests
 
-- [ ] **Test OpenAI usage format** — Verify correct cost from `prompt_tokens` and `completion_tokens`. | Status: not_done
-- [ ] **Test Anthropic usage format** — Verify correct cost from `input_tokens` and `output_tokens`. | Status: not_done
-- [ ] **Test known model pricing** — Verify GPT-4o, Claude Sonnet, Gemini Flash produce correct dollar costs with the spec's pricing table. | Status: not_done
-- [ ] **Test unknown model** — Verify cost is 0.00 and a warning is emitted. | Status: not_done
-- [ ] **Test custom pricing override** — Provide custom pricing for a model. Verify custom pricing takes precedence over built-in. | Status: not_done
-- [ ] **Test dated model name prefix matching** — Verify `gpt-4o-2024-08-06` matches `gpt-4o` pricing. | Status: not_done
-- [ ] **Test zero tokens** — Verify cost is 0.00. | Status: not_done
-- [ ] **Test explicit cost override** — Pass `cost` field in `RecordInput`. Verify it bypasses pricing computation. | Status: not_done
+- [x] **Test OpenAI usage format** — Verify correct cost from `prompt_tokens` and `completion_tokens`. | Status: done
+- [x] **Test Anthropic usage format** — Verify correct cost from `input_tokens` and `output_tokens`. | Status: done
+- [x] **Test known model pricing** — Verify GPT-4o, Claude Sonnet, Gemini Flash produce correct dollar costs with the spec's pricing table. | Status: done
+- [x] **Test unknown model** — Verify cost is 0.00 and a warning is emitted. | Status: done
+- [x] **Test custom pricing override** — Provide custom pricing for a model. Verify custom pricing takes precedence over built-in. | Status: done
+- [x] **Test dated model name prefix matching** — Verify `gpt-4o-2024-08-06` matches `gpt-4o` pricing. | Status: done
+- [x] **Test zero tokens** — Verify cost is 0.00. | Status: done
+- [x] **Test explicit cost override** — Pass `cost` field in `RecordInput`. Verify it bypasses pricing computation. | Status: done
 
 ### 6.4 CostTracker Tests
 
-- [ ] **Test `record()` creates correct CostRecord** — Verify id (UUID format), timestamp (ISO 8601), computed cost, and merged tags. | Status: not_done
-- [ ] **Test `query()` with no filters** — Verify all records are returned. | Status: not_done
-- [ ] **Test `query()` with tag filter** — Verify only records matching the tag filter are returned. | Status: not_done
+- [x] **Test `record()` creates correct CostRecord** — Verify id (UUID format), timestamp (ISO 8601), computed cost, and merged tags. | Status: done
+- [x] **Test `query()` with no filters** — Verify all records are returned. | Status: done
+- [x] **Test `query()` with tag filter** — Verify only records matching the tag filter are returned. | Status: done
 - [ ] **Test `query()` with date range** — Verify only records within the from/to range are returned. | Status: not_done
-- [ ] **Test `query()` with model filter** — Verify only records for specified models are returned. | Status: not_done
-- [ ] **Test `count()` with and without filters** — Verify correct count is returned. | Status: not_done
-- [ ] **Test `flush()` writes buffered records** — Record multiple entries, call `flush()`, verify records are in storage. | Status: not_done
-- [ ] **Test `close()` flushes and sets closed flag** — Record entries, call `close()`, verify records are flushed. Call `close()` again, verify it is a no-op. | Status: not_done
-- [ ] **Test `record()` after `close()` throws** — Verify an error is thrown when recording after tracker is closed. | Status: not_done
-- [ ] **Test `purge()` deletes matching records** — Record entries with different tags, purge by tag, verify only matching records are deleted and correct count is returned. | Status: not_done
-- [ ] **Test buffer flush threshold** — Record entries up to `maxRecords` minus one, verify nothing flushed. Record one more, verify buffer is flushed to storage. | Status: not_done
-- [ ] **Test buffer interval flush** — Record entries below threshold, wait for `maxIntervalMs`, verify records are flushed. | Status: not_done
+- [x] **Test `query()` with model filter** — Verify only records for specified models are returned. | Status: done
+- [x] **Test `count()` with and without filters** — Verify correct count is returned. | Status: done
+- [x] **Test `flush()` writes buffered records** — Record multiple entries, call `flush()`, verify records are in storage. | Status: done
+- [x] **Test `close()` flushes and sets closed flag** — Record entries, call `close()`, verify records are flushed. Call `close()` again, verify it is a no-op. | Status: done
+- [x] **Test `record()` after `close()` throws** — Verify an error is thrown when recording after tracker is closed. | Status: done
+- [x] **Test `purge()` deletes matching records** — Record entries with different tags, purge by tag, verify only matching records are deleted and correct count is returned. | Status: done
+- [x] **Test buffer flush threshold** — Record entries up to `maxRecords` minus one, verify nothing flushed. Record one more, verify buffer is flushed to storage. | Status: done
+- [x] **Test buffer interval flush** — Record entries below threshold, wait for `maxIntervalMs`, verify records are flushed. | Status: done
 
 ### 6.5 Report Generation Tests
 
@@ -306,12 +306,12 @@ This file tracks all implementation tasks derived from SPEC.md. Tasks are groupe
 
 ### 6.7 Storage Backend Tests
 
-- [ ] **Test in-memory: append, query, purge, close** — Verify basic CRUD operations on the in-memory adapter. | Status: not_done
+- [x] **Test in-memory: append, query, purge, close** — Verify basic CRUD operations on the in-memory adapter. | Status: done
 - [ ] **Test file-based: records persist across tracker restart** — Create a tracker with file storage, record entries, close it. Create a new tracker with the same file. Verify all records are present. | Status: not_done
 - [ ] **Test file-based: atomic write safety** — Verify that partial writes do not corrupt the file (temp file + rename pattern). | Status: not_done
 - [ ] **Test file-based: empty file handled** — Start with an empty (or non-existent) file. Verify tracker starts with zero records. | Status: not_done
 - [ ] **Test file-based: non-existent directory** — Provide a path in a non-existent directory. Verify `ChargebackStorageError` with clear message. | Status: not_done
-- [ ] **Test custom adapter: interface methods called correctly** — Create a mock adapter. Verify `append`, `query`, `purge`, `close` are called with correct arguments. | Status: not_done
+- [x] **Test custom adapter: interface methods called correctly** — Create a mock adapter. Verify `append`, `query`, `purge`, `close` are called with correct arguments. | Status: done
 
 ### 6.8 AsyncLocalStorage Context Tests
 
@@ -353,8 +353,8 @@ This file tracks all implementation tasks derived from SPEC.md. Tasks are groupe
 - [ ] **Test file storage: file created on first flush** — Path does not exist. File created on first flush. | Status: not_done
 - [ ] **Test file storage: directory does not exist** — Throw error with clear message. | Status: not_done
 - [ ] **Test concurrent `record()` calls** — Multiple async operations record simultaneously. All records captured without data loss. | Status: not_done
-- [ ] **Test `close()` called twice** — Second call is a no-op. No error thrown. | Status: not_done
-- [ ] **Test `record()` after `close()`** — Throws an error. | Status: not_done
+- [x] **Test `close()` called twice** — Second call is a no-op. No error thrown. | Status: done
+- [x] **Test `record()` after `close()`** — Throws an error. | Status: done
 
 ---
 
@@ -371,12 +371,12 @@ This file tracks all implementation tasks derived from SPEC.md. Tasks are groupe
 - [ ] **Add peer dependencies** — Add optional `model-price-registry` as a peer dependency: `"peerDependencies": { "model-price-registry": "^0.1.0" }`, `"peerDependenciesMeta": { "model-price-registry": { "optional": true } }`. | Status: not_done
 - [ ] **Add dev dependencies** — Add `typescript`, `vitest`, `eslint`, `openai`, `@anthropic-ai/sdk` to `devDependencies`. | Status: not_done
 - [ ] **Add keywords to `package.json`** — Add relevant keywords: `ai`, `chargeback`, `cost-allocation`, `cost-tracking`, `llm`, `openai`, `anthropic`, `tagging`, `showback`, `finops`. | Status: not_done
-- [ ] **Verify `engines` field** — Ensure `"engines": { "node": ">=18" }` is set. | Status: not_done
+- [x] **Verify `engines` field** — Ensure `"engines": { "node": ">=18" }` is set. | Status: done
 
 ### 7.3 Build and Lint
 
 - [ ] **Verify TypeScript compilation** — Run `npm run build`. Ensure all source files compile without errors. Verify `dist/` output includes `.js`, `.d.ts`, and `.d.ts.map` files. | Status: not_done
-- [ ] **Configure ESLint** — Set up ESLint configuration for the project if not already present. Ensure `npm run lint` passes. | Status: not_done
+- [x] **Configure ESLint** — Set up ESLint configuration for the project if not already present. Ensure `npm run lint` passes. | Status: done
 - [ ] **Run full test suite** — Execute `npm run test` (vitest run). All unit, integration, and edge case tests must pass. | Status: not_done
 
 ### 7.4 Version and Publish Preparation
