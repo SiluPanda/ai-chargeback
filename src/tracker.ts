@@ -4,7 +4,7 @@ import type {
   ChargebackConfig, ChargebackReport, ExportFormat,
   ExportOptions, ReportOptions, Tags,
 } from './types';
-import { ChargebackConfigError } from './errors';
+import { ChargebackConfigError, ChargebackValidationError } from './errors';
 import { MemoryStorageAdapter } from './storage/memory';
 import { getPrice, computeCost } from './pricing';
 import { validateTags } from './validation';
@@ -32,7 +32,7 @@ export function createTracker(config?: Partial<ChargebackConfig>): CostTracker {
 
   // Start flush interval
   if (maxIntervalMs > 0) {
-    flushTimer = setInterval(() => { flushBuffer(); }, maxIntervalMs);
+    flushTimer = setInterval(() => { flushBuffer().catch(() => {}); }, maxIntervalMs);
     if (flushTimer.unref) flushTimer.unref();
   }
 
@@ -46,6 +46,9 @@ export function createTracker(config?: Partial<ChargebackConfig>): CostTracker {
   const tracker: CostTracker = {
     async record(input: RecordInput): Promise<CostRecord> {
       if (closed) throw new ChargebackConfigError('Tracker is closed');
+      if (input.inputTokens < 0 || input.outputTokens < 0) {
+        throw new ChargebackValidationError('Token counts must not be negative');
+      }
       const mergedTags = { ...defaultTags, ...input.tags };
       validateTags(mergedTags, { allowedTagKeys, requiredTagKeys });
 
