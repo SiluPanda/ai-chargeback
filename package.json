@@ -1,6 +1,6 @@
 {
   "name": "ai-chargeback",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Tag and allocate AI API costs by team, project, or feature",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
