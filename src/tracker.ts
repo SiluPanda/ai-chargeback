@@ -29,6 +29,7 @@ export function createTracker(config?: Partial<ChargebackConfig>): CostTracker {
   let buffer: CostRecord[] = [];
   let closed = false;
   let flushTimer: ReturnType<typeof setInterval> | null = null;
+  let flushPromise: Promise<void> | null = null;
 
   // Start flush interval
   if (maxIntervalMs > 0) {
@@ -40,7 +41,10 @@ export function createTracker(config?: Partial<ChargebackConfig>): CostTracker {
     if (buffer.length === 0) return;
     const toFlush = buffer;
     buffer = [];
-    await storage.append(toFlush);
+    const p = storage.append(toFlush);
+    flushPromise = p;
+    await p;
+    flushPromise = null;
   }
 
   const tracker: CostTracker = {
@@ -101,6 +105,7 @@ export function createTracker(config?: Partial<ChargebackConfig>): CostTracker {
       if (closed) return;
       closed = true;
       if (flushTimer) { clearInterval(flushTimer); flushTimer = null; }
+      if (flushPromise) await flushPromise;
       await flushBuffer();
       await storage.close();
     },

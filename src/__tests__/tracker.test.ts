@@ -542,6 +542,53 @@ describe('buffer auto-flush', () => {
   });
 });
 
+describe('close() awaits in-flight flush', () => {
+  it('does not lose records when close() races with an in-flight flush', async () => {
+    const stored: CostRecord[] = [];
+    let appendResolve: (() => void) | null = null;
+
+    const slowAdapter: StorageAdapter = {
+      async append(records) {
+        // Simulate a slow storage write — the promise won't resolve until
+        // we call appendResolve() from the test.
+        await new Promise<void>((resolve) => { appendResolve = resolve; });
+        stored.push(...records);
+      },
+      async query() { return [...stored]; },
+      async purge() { return 0; },
+      async close() {},
+    };
+
+    const tracker = createTracker({
+      storage: { type: 'custom', adapter: slowAdapter },
+      buffer: { maxRecords: 1, maxIntervalMs: 0 },
+    });
+
+    // This record hits maxRecords=1 so it triggers flushBuffer() internally.
+    // flushBuffer starts storage.append() which blocks on our manual promise.
+    const recordPromise = tracker.record({
+      tags: { team: 'test' },
+      model: 'gpt-4o',
+      inputTokens: 100,
+      outputTokens: 50,
+    });
+
+    // At this point the append is in-flight (not resolved).
+    // Calling close() must await that in-flight flush before calling storage.close().
+    const closePromise = tracker.close();
+
+    // Resolve the slow append so both record() and close() can finish.
+    appendResolve!();
+
+    await recordPromise;
+    await closePromise;
+
+    // The record must have been persisted — not lost due to the race.
+    expect(stored).toHaveLength(1);
+    expect(stored[0].model).toBe('gpt-4o');
+  });
+});
+
 describe('custom storage adapter', () => {
   it('calls adapter methods correctly', async () => {
     const calls: string[] = [];
